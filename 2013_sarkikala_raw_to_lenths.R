@@ -26,7 +26,7 @@ library(tidyverse)
 #                   0. set working directories to match folder paths                      
 #-------------------------------------------------------------------------------
 
-# Perttu:file:///C:/perttu/särkikala/LEENA_PUURA/2013/2013_raw.csvC:\perttu\eu-tike\SUOMU\SCRIPTS\Suomu-scripts\orig
+# Perttu:
 path_data <- "C:/perttu/eu-tike/SUOMU/SCRIPTS/Suomu-scripts/orig" # folder where raw data is
 path_out <- "C:/perttu/eu-tike/SUOMU/SCRIPTS/Suomu-scripts/out" # folder for results
 

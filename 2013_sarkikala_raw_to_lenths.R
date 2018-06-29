@@ -122,8 +122,12 @@ species$Kayttotarkoitus <- "Ruokakalaa"
 species$otoksen_paino <- species$otoksen_paino/1000
 species <- species %>% select(Näytenumero, Saalisluokka, Laji, Kayttotarkoitus, painokokosaaliista, otoksen_paino)
 
+speciesaggr <- species$Laji
+speciesaggr<- as.character(speciesaggr)
+speciesaggr <- unique(speciesaggr)
 
 # set working directory to save data
 setwd(path_out)
 write.csv(lc_data, "2013_särkikalaprojektin_pituusluokat.csv", row.names = F)
 write.csv(species, "2013_särkikalaprojektin_lajijakauma.csv", row.names = F)
+write.csv(speciesaggr, "2013_särkikalaprojektin_lajit.csv", row.names = F)

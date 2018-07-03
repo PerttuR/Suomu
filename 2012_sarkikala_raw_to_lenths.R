@@ -4,7 +4,7 @@
 #
 # Coded: Perttu Rantanen
 #
-# Date: JUN-2018
+# Date: JUL-2018
 #
 # Client: Project särkikala
 #-------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ setwd(path_data)
 # import raw
 raw_data <- read.csv2("2012_raw.csv", sep = ";", dec = "," )
 
-#set >800 length to 0
+#set >800 length to 0 (no such fish)
 raw_data$Pituus_mm[raw_data$Pituus_mm >= 800 ] <- 0
 
 #set 0 length to NA
@@ -45,7 +45,7 @@ raw_data$Pituus_mm<- raw_data$Pituus_mm %>% na_if(0)
 min(raw_data$Pituus_mm, na.rm = TRUE)
 max(raw_data$Pituus_mm, na.rm = TRUE)
 
-# aggregate data into 1 cm length classes based on min & max ranges
+# create 1 cm lengthclasses based on min & max ranges
 raw_data$pituusluokka[raw_data$Pituus_mm >= 100 & raw_data$Pituus_mm < 110] <- 100
 raw_data$pituusluokka[raw_data$Pituus_mm >= 110 & raw_data$Pituus_mm < 120] <- 110
 raw_data$pituusluokka[raw_data$Pituus_mm >= 120 & raw_data$Pituus_mm < 130] <- 120
@@ -126,14 +126,14 @@ nrow(raw_data)
 raw_data <- raw_data %>% drop_na(pituusluokka)
 nrow(raw_data)
 
-# aggregate data to the same level as landings data (by length CLASS)
+# aggregate data to lengthclass
 lc_data <- raw_data %>% group_by(Näytenumero, Laji, pituusluokka) %>% summarise(pituusluokan_kpl_maara = sum(Kpl), aliotoksenpaino_g = sum(Paino_g))
 
 lc_data <- lc_data %>% arrange(Näytenumero, Laji, pituusluokka)
 lc_data$mittausvali <- 10
 lc_data <- lc_data %>% select(Näytenumero, Laji, pituusluokka, mittausvali, pituusluokan_kpl_maara, aliotoksenpaino_g)
-# select species
 
+# select species
 species <- lc_data %>% group_by(Näytenumero, Laji) %>% summarise(otoksen_paino_g = sum(aliotoksenpaino_g))
 species$painokokosaaliista <- ""
 species$Saalisluokka <-"LANDING"
